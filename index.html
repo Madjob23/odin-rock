@@ -26,6 +26,22 @@
             }
             return playerChoice;
         }
+
+        function playRound (player, computer) {
+            const player = getHumanChoice();
+            const computer = getComputerChoice(choices);
+            if (player === computer) {
+                return 'It\'s a tie!';
+            } else if (player === 'rock' && computer === 'scissors' || player === 'paper' && computer === 'rock' || player === 'scissors' && computer === 'paper') {
+                humanScore++;
+                return `You win! ${player} beats ${computer}`;
+            } else {
+                computerScore++;
+                return `You lose! ${computer} beats ${player}`;
+            }
+        }
+
+        
     </script>
 </body>
 </html>
