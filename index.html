@@ -4,61 +4,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Rock Paper Scissors</title>
+    <script src="script.js" defer></script>
 </head>
 <body>
-    <script>
-        let humanScore = 0;
-        let computerScore = 0;
-        const choices = ['rock', 'paper', 'scissors'];
-        function getComputerChoice (choiceArr) {
-            return choiceArr[Math.floor(Math.random()  * choiceArr.length)]
-        }
-
-        function getHumanChoice () {
-            let keepGoing = true;
-            while (keepGoing) {
-                playerChoice = prompt('Enter your choice: rock, paper, or scissors').toLowerCase();
-                if (!choices.includes(playerChoice)) {
-                    alert('Invalid choice. Please try again.');
-                } else {
-                    keepGoing = false;
-                }
-            }
-            return playerChoice;
-        }
-
-        function playRound () {
-            const player = getHumanChoice();
-            const computer = getComputerChoice(choices);
-            if (player === computer) {
-                return 'It\'s a tie!';
-            } else if (player === 'rock' && computer === 'scissors' || player === 'paper' && computer === 'rock' || player === 'scissors' && computer === 'paper') {
-                humanScore++;
-                return `You win! ${player} beats ${computer}`;
-            } else {
-                computerScore++;
-                return `You lose! ${computer} beats ${player}`;
-            }
-        }
-
-        function playGame() {
-            let keepGoing = true;
-            let rounds = '';
-            while (keepGoing) {
-                rounds = prompt('How many rounds would you like to play?');
-                if (isNaN(rounds)) {
-                    alert('Invalid input. Please enter a number.');
-                } else {
-                    keepGoing = false;
-                }
-            }
-            while (rounds > 0) {
-                console.log(playRound());
-                rounds--;
-            }
-        }
-
-        playGame();
-    </script>
 </body>
 </html>
