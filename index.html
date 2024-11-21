@@ -11,13 +11,13 @@
         let computerScore = 0;
         const choices = ['rock', 'paper', 'scissors'];
         function getComputerChoice (choiceArr) {
-            return cjhoiceArr[Math.floor(Math.random()  * array.length)]
+            return choiceArr[Math.floor(Math.random()  * choiceArr.length)]
         }
 
         function getHumanChoice () {
-            keepGoing = true;
+            let keepGoing = true;
             while (keepGoing) {
-                playerChoice = prompt('Enter your choice: rock, paper, or scissors').toLowerCase;
+                playerChoice = prompt('Enter your choice: rock, paper, or scissors').toLowerCase();
                 if (!choices.includes(playerChoice)) {
                     alert('Invalid choice. Please try again.');
                 } else {
@@ -27,7 +27,7 @@
             return playerChoice;
         }
 
-        function playRound (player, computer) {
+        function playRound () {
             const player = getHumanChoice();
             const computer = getComputerChoice(choices);
             if (player === computer) {
@@ -42,18 +42,19 @@
         }
 
         function playGame() {
-            keepGoing = true;
+            let keepGoing = true;
+            let rounds = '';
             while (keepGoing) {
-                const rounds = prompt('How many rounds would you like to play?');
+                rounds = prompt('How many rounds would you like to play?');
                 if (isNaN(rounds)) {
                     alert('Invalid input. Please enter a number.');
                 } else {
                     keepGoing = false;
                 }
             }
-            while (round > 0) {
+            while (rounds > 0) {
                 console.log(playRound());
-                round--;
+                rounds--;
             }
         }
 
