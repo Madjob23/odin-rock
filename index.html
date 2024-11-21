@@ -13,6 +13,19 @@
         function getComputerChoice (choiceArr) {
             return cjhoiceArr[Math.floor(Math.random()  * array.length)]
         }
+
+        function getHumanChoice () {
+            keepGoing = true;
+            while (keepGoing) {
+                playerChoice = prompt('Enter your choice: rock, paper, or scissors').toLowerCase;
+                if (playerChoice not in choices) {
+                    alert('Invalid choice. Please try again.');
+                } else {
+                    keepGoing = false;
+                }
+            }
+            return playerChoice;
+        }
     </script>
 </body>
 </html>
