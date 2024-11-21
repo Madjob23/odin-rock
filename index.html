@@ -41,7 +41,21 @@
             }
         }
 
-        
+        function playGame() {
+            keepGoing = true;
+            while (keepGoing) {
+                const rounds = prompt('How many rounds would you like to play?');
+                if (isNaN(rounds)) {
+                    alert('Invalid input. Please enter a number.');
+                } else {
+                    keepGoing = false;
+                }
+            }
+            while (round > 0) {
+                console.log(playRound());
+                round--;
+            }
+        }
     </script>
 </body>
 </html>
