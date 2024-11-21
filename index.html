@@ -18,7 +18,7 @@
             keepGoing = true;
             while (keepGoing) {
                 playerChoice = prompt('Enter your choice: rock, paper, or scissors').toLowerCase;
-                if (playerChoice not in choices) {
+                if (!choices.includes(playerChoice)) {
                     alert('Invalid choice. Please try again.');
                 } else {
                     keepGoing = false;
