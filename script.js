@@ -1,6 +1,7 @@
 let humanScore = 0;
 let computerScore = 0;
 const choices = ['rock', 'paper', 'scissors'];
+const choicesDiv = document.getElementById('choices');
 
 function getComputerChoice (choiceArr) {
     //multiplying Math.random() by the length of the array 
@@ -8,18 +9,11 @@ function getComputerChoice (choiceArr) {
     return choiceArr[Math.floor(Math.random()  * choiceArr.length)]
 }
 
-function getHumanChoice () {
+function getHumanChoice (event) {
     let keepGoing = true;// just a looping variable
     let playerChoice = '';
-    while (keepGoing) {
-        playerChoice = prompt('Enter your choice: rock, paper, or scissors').toLowerCase();
-        if (!choices.includes(playerChoice)) {
-            alert('Invalid choice. Please try again.');
-        } else {
-            keepGoing = false;
-        }
-    }
-    return playerChoice;
+    playerChoice = event.target.id.toLowerCase();
+    alert(playerChoice);
 }
 
 function playRound () {
@@ -58,4 +52,4 @@ function playGame() {
     }
 }
 
-playGame();
+choicesDiv.addEventListener('click', getHumanChoice)
