@@ -10,8 +10,9 @@ function getComputerChoice (choiceArr) {
 
 function getHumanChoice () {
     let keepGoing = true;// just a looping variable
+    let playerChoice = '';
     while (keepGoing) {
-        const playerChoice = prompt('Enter your choice: rock, paper, or scissors').toLowerCase();
+        playerChoice = prompt('Enter your choice: rock, paper, or scissors').toLowerCase();
         if (!choices.includes(playerChoice)) {
             alert('Invalid choice. Please try again.');
         } else {
@@ -43,7 +44,7 @@ function playGame() {
     let keepGoing = true; // just a looping variable
     let rounds = 0;
     while (keepGoing) {
-        rounds = prompt('How many rounds would you like to play?');
+        rounds = Number(prompt('How many rounds would you like to play?'));
         if (isNaN(rounds)) {
             alert('Invalid input. Please enter a number.');
         } else {
