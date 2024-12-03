@@ -1,7 +1,8 @@
 let humanScore = 0;
 let computerScore = 0;
 const choices = ['rock', 'paper', 'scissors'];
-const choicesDiv = document.getElementById('choices');
+const choicesDiv = document.querySelector('#choices');
+const resultDisplay = document.querySelector('#resultDisplay');
 
 function getComputerChoice (choiceArr) {
     //multiplying Math.random() by the length of the array 
@@ -9,15 +10,21 @@ function getComputerChoice (choiceArr) {
     return choiceArr[Math.floor(Math.random()  * choiceArr.length)]
 }
 
-function getHumanChoice (event) {
+function getHumanChoice () {
     let keepGoing = true;// just a looping variable
     let playerChoice = '';
-    playerChoice = event.target.id.toLowerCase();
-    alert(playerChoice);
+    while (keepGoing) {
+        playerChoice = prompt('Enter your choice: rock, paper, or scissors').toLowerCase();
+        if (!choices.includes(playerChoice)) {
+            alert('Invalid choice. Please try again.');
+        } else {
+            keepGoing = false;
+        }
+    }
+    return playerChoice;
 }
 
-function playRound () {
-    const playerChoice = getHumanChoice();
+function playRound (playerChoice) {
     const computerChoice = getComputerChoice(choices);
     if (playerChoice === computerChoice) {
         return 'It\'s a tie!';
@@ -34,22 +41,18 @@ function playRound () {
     }
 }
 
-function playGame() {
-    let keepGoing = true; // just a looping variable
-    let rounds = 0;
-    while (keepGoing) {
-        rounds = Number(prompt('How many rounds would you like to play?'));
-        if (isNaN(rounds)) {
-            alert('Invalid input. Please enter a number.');
-        } else {
-            keepGoing = false;
-        }
-    }
-    while (rounds > 0) {
-        // display the results of each round 
-        console.log(playRound());
-        rounds--;
-    }
+function display (result, score) {
+    resultDisplay.textContent = `${result}. Your score is: ${score}` ;
 }
 
-choicesDiv.addEventListener('click', getHumanChoice)
+choicesDiv.addEventListener('click', (event) => {
+    if (humanScore < 5 && computerScore < 5) {
+        choice = event.target.id;
+        roundResult = playRound(choice);
+        display(roundResult, humanScore);
+    } else if (humanScore == 5) {
+        resultDisplay.textContent = `${result}. Your score is: ${score}. You WON!!`
+    } else {
+        resultDisplay.textContent = `${result}. Your score is: ${score}. You Lost, the computer scored 5 first!!`
+    }
+});
