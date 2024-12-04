@@ -3,6 +3,8 @@ let computerScore = 0;
 const choices = ['rock', 'paper', 'scissors'];
 const choicesDiv = document.querySelector('#choices');
 const resultDisplay = document.querySelector('#resultDisplay');
+const resetbtn = document.querySelector('#reset');
+resetbtn.style.display = 'none';
 
 function getComputerChoice (choiceArr) {
     //multiplying Math.random() by the length of the array 
@@ -10,18 +12,20 @@ function getComputerChoice (choiceArr) {
     return choiceArr[Math.floor(Math.random()  * choiceArr.length)]
 }
 
-function getHumanChoice () {
-    let keepGoing = true;// just a looping variable
-    let playerChoice = '';
-    while (keepGoing) {
-        playerChoice = prompt('Enter your choice: rock, paper, or scissors').toLowerCase();
-        if (!choices.includes(playerChoice)) {
-            alert('Invalid choice. Please try again.');
-        } else {
-            keepGoing = false;
-        }
+function playGame (playClick) {
+    if (choices.includes(playClick.target.id)) {
+        let choice = playClick.target.id;
+        roundResult = playRound(choice);
     }
-    return playerChoice;
+    if (humanScore < 5 && computerScore < 5) {
+        display(roundResult, humanScore);
+    }else if (humanScore == 5) {
+        resultDisplay.textContent = `${roundResult}. Your score is: ${humanScore}. You WON!!`;
+        resetbtn.style.display = 'block';
+    } else if (computerScore == 5) {
+        resultDisplay.textContent = `${roundResult}. Your score is: ${humanScore}. You Lost, the computer scored 5 first!!`;
+        resetbtn.style.display = 'block';
+    }
 }
 
 function playRound (playerChoice) {
@@ -45,14 +49,13 @@ function display (result, score) {
     resultDisplay.textContent = `${result}. Your score is: ${score}` ;
 }
 
-choicesDiv.addEventListener('click', (event) => {
-    if (humanScore < 5 && computerScore < 5) {
-        choice = event.target.id;
-        roundResult = playRound(choice);
-        display(roundResult, humanScore);
-    } else if (humanScore == 5) {
-        resultDisplay.textContent = `${result}. Your score is: ${score}. You WON!!`
-    } else {
-        resultDisplay.textContent = `${result}. Your score is: ${score}. You Lost, the computer scored 5 first!!`
-    }
-});
+function resetGame () {
+    humanScore = 0;
+    computerScore = 0;
+    resultDisplay.textContent = '';
+    resetbtn.style.display = 'none';
+}
+
+choicesDiv.addEventListener('click', playGame);
+
+resetbtn.addEventListener('click', resetGame);
