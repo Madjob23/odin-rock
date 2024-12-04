@@ -1,9 +1,9 @@
-let humanScore = 0;
+let playerScore = 0;
 let computerScore = 0;
 const choices = ['rock', 'paper', 'scissors'];
 const choicesDiv = document.querySelector('#choices');
 const resultDisplay = document.querySelector('#resultDisplay');
-const resetbtn = document.querySelector('#reset');
+const resetBtn = document.querySelector('#reset');
 /* create a new event for firing when needed 
 through the dispatchEvent method*/
 const resetClick = new Event('click', {bubbles:false}) 
@@ -20,14 +20,14 @@ function playGame (playClick) {
         let choice = playClick.target.id;
         roundResult = playRound(choice);
     }
-    if (humanScore < 5 && computerScore < 5) {
-        display(roundResult, humanScore);
-    }else if (humanScore == 5) {
-        resultDisplay.textContent = `${roundResult}. Your score is: ${humanScore}. You WON!!`;
-        resetbtn.dispatchEvent(resetClick);
+    if (playerScore < 5 && computerScore < 5) {
+        display(roundResult, playerScore);
+    }else if (playerScore == 5) {
+        resultDisplay.textContent = `${roundResult}. Your score is: ${playerScore}. You WON!!`;
+        resetBtn.dispatchEvent(resetClick);
     } else if (computerScore == 5) {
-        resultDisplay.textContent = `${roundResult}. Your score is: ${humanScore}. You Lost, the computer scored 5 first!!`;
-        resetbtn.dispatchEvent(resetClick);
+        resultDisplay.textContent = `${roundResult}. Your score is: ${playerScore}. You Lost, the computer scored 5 first!!`;
+        resetBtn.dispatchEvent(resetClick);
     }
 }
 
@@ -40,7 +40,7 @@ function playRound (playerChoice) {
         playerChoice === 'paper' && computerChoice === 'rock' || 
         playerChoice === 'scissors' && computerChoice === 'paper'
         ) {
-        humanScore++;
+        playerScore++;
         return `You win! ${playerChoice} beats ${computerChoice}`;
     } else {
         computerScore++;
@@ -53,7 +53,7 @@ function display (result, score) {
 }
 
 function resetGame (event) {
-    humanScore = 0;
+    playerScore = 0;
     computerScore = 0;
     /* true if the user has clicked reset 
     and false if it's through the dispatchEvent method*/
@@ -64,4 +64,4 @@ function resetGame (event) {
 
 choicesDiv.addEventListener('click', playGame);
 
-resetbtn.addEventListener('click', resetGame);
+resetBtn.addEventListener('click', resetGame);
