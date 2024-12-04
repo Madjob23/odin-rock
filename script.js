@@ -4,7 +4,9 @@ const choices = ['rock', 'paper', 'scissors'];
 const choicesDiv = document.querySelector('#choices');
 const resultDisplay = document.querySelector('#resultDisplay');
 const resetbtn = document.querySelector('#reset');
-resetbtn.style.display = 'none';
+/* create a new event for firing when needed 
+through the dispatchEvent method*/
+const resetClick = new Event('click', {bubbles:false}) 
 
 function getComputerChoice (choiceArr) {
     //multiplying Math.random() by the length of the array 
@@ -13,6 +15,7 @@ function getComputerChoice (choiceArr) {
 }
 
 function playGame (playClick) {
+    playClick.stopPropagation(); // no need to bubble this event  
     if (choices.includes(playClick.target.id)) {
         let choice = playClick.target.id;
         roundResult = playRound(choice);
@@ -21,10 +24,10 @@ function playGame (playClick) {
         display(roundResult, humanScore);
     }else if (humanScore == 5) {
         resultDisplay.textContent = `${roundResult}. Your score is: ${humanScore}. You WON!!`;
-        resetbtn.style.display = 'block';
+        resetbtn.dispatchEvent(resetClick);
     } else if (computerScore == 5) {
         resultDisplay.textContent = `${roundResult}. Your score is: ${humanScore}. You Lost, the computer scored 5 first!!`;
-        resetbtn.style.display = 'block';
+        resetbtn.dispatchEvent(resetClick);
     }
 }
 
@@ -49,11 +52,14 @@ function display (result, score) {
     resultDisplay.textContent = `${result}. Your score is: ${score}` ;
 }
 
-function resetGame () {
+function resetGame (event) {
     humanScore = 0;
     computerScore = 0;
-    resultDisplay.textContent = '';
-    resetbtn.style.display = 'none';
+    /* true if the user has clicked reset 
+    and false if it's through the dispatchEvent method*/
+    if (event.isTrusted) {
+        resultDisplay.textContent = '';
+    }
 }
 
 choicesDiv.addEventListener('click', playGame);
